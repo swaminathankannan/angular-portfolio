@@ -1,0 +1,102 @@
+<app-site-header mode="inner" />
+
+<main id="main-content" class="detail-main">
+  @if (project(); as p) {
+    <article class="container detail-article">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/">Home</a>
+        <span aria-hidden="true">/</span>
+        <a routerLink="/" fragment="projects">Projects</a>
+        <span aria-hidden="true">/</span>
+        <span>{{ p.shortName }}</span>
+      </nav>
+
+      <header class="detail-header" [attr.data-motif]="p.motif">
+        <div class="header-copy">
+          <p class="category">{{ p.category }}</p>
+          @if (p.period) {
+            <p class="period">{{ p.period }}</p>
+          }
+          <h1>{{ p.name }}</h1>
+          <p class="tagline">{{ p.tagline }}</p>
+          <ul class="stack" aria-label="Technologies">
+            @for (tech of p.stack; track tech) {
+              <li>{{ tech }}</li>
+            }
+          </ul>
+          @if (p.links.length) {
+            <div class="external-links">
+              @for (link of p.links; track link.url) {
+                <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.label }}</a>
+              }
+            </div>
+          }
+        </div>
+        <div class="header-visual" aria-hidden="true">
+          <div class="visual-frame">
+            <span class="label">{{ p.shortName }}</span>
+            <p>{{ p.overview }}</p>
+          </div>
+        </div>
+      </header>
+
+      <div class="detail-layout">
+        <div class="detail-sections">
+          <section aria-labelledby="problem-heading">
+            <h2 id="problem-heading">Problem & context</h2>
+            <p>{{ p.problem }}</p>
+          </section>
+
+          <section aria-labelledby="contribution-heading">
+            <h2 id="contribution-heading">My contribution</h2>
+            <ul>
+              @for (item of p.contribution; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </section>
+
+          <section aria-labelledby="approach-heading">
+            <h2 id="approach-heading">Technical approach</h2>
+            <ul>
+              @for (item of p.approach; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </section>
+
+          <section aria-labelledby="challenges-heading">
+            <h2 id="challenges-heading">Engineering challenges</h2>
+            <ul>
+              @for (item of p.challenges; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </section>
+
+          <section aria-labelledby="outcomes-heading">
+            <h2 id="outcomes-heading">Outcomes</h2>
+            <ul>
+              @for (item of p.outcomes; track item) {
+                <li>{{ item }}</li>
+              }
+            </ul>
+          </section>
+        </div>
+      </div>
+
+      <footer class="detail-footer">
+        <a class="btn btn-secondary" routerLink="/" fragment="projects">← All projects</a>
+        <a class="btn btn-ghost" [href]="site.resumePath" download>Resume</a>
+      </footer>
+    </article>
+  } @else {
+    <div class="container not-found">
+      <h1>Project not found</h1>
+      <p>This case study is not available. Return to the project list to explore featured work.</p>
+      <a class="btn btn-primary" routerLink="/" fragment="projects">View projects</a>
+    </div>
+  }
+</main>
+
+<app-site-footer />

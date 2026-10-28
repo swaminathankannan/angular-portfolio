@@ -1,0 +1,14 @@
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>
+      <p class="footer-name">{{ site.name }}</p>
+      <p class="footer-meta">{{ site.title }} · {{ site.location }}</p>
+    </div>
+    <div class="footer-links">
+      <a [href]="site.links.linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a [href]="site.links.github" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a [href]="site.resumePath" download>Resume</a>
+    </div>
+    <p class="footer-copy">© {{ year }} Swaminathan Kannan. Built with Angular.</p>
+  </div>
+</footer>

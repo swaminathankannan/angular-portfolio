@@ -1,0 +1,64 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header" [class.menu-open]="menuOpen">
+  <div class="container header-inner">
+    <a class="brand" routerLink="/" (click)="closeMenu()">
+      <span class="brand-mark" aria-hidden="true">SK</span>
+      <span class="brand-text">{{ site.name }}</span>
+    </a>
+
+    @if (mode() === 'home') {
+      <nav class="nav-desktop" aria-label="Primary">
+        @for (item of navItems(); track item.fragment) {
+          <a
+            class="nav-link"
+            [href]="'#' + item.fragment"
+            [ngClass]="{ active: scrollSpy.activeSection() === item.fragment }"
+            (click)="onNavClick(item.fragment, $event)"
+          >
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+    } @else {
+      <nav class="nav-desktop" aria-label="Primary">
+        <a class="nav-link" routerLink="/" routerLinkActive="active">Home</a>
+        <a class="nav-link" routerLink="/" fragment="projects" routerLinkActive="active">Projects</a>
+        <a class="nav-link" routerLink="/" fragment="contact" routerLinkActive="active">Contact</a>
+      </nav>
+    }
+
+    <div class="header-actions">
+      <a class="btn btn-ghost btn-sm" [href]="site.resumePath" download>Resume</a>
+      <button
+        type="button"
+        class="menu-toggle"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="mobile-nav"
+        (click)="toggleMenu()"
+      >
+        <span class="sr-only">Toggle menu</span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="nav-mobile" [class.open]="menuOpen" aria-label="Mobile">
+    @if (mode() === 'home') {
+      @for (item of navItems(); track item.fragment) {
+        <a
+          class="nav-link"
+          [href]="'#' + item.fragment"
+          (click)="onNavClick(item.fragment, $event)"
+        >
+          {{ item.label }}
+        </a>
+      }
+    } @else {
+      <a class="nav-link" routerLink="/" (click)="closeMenu()">Home</a>
+      <a class="nav-link" routerLink="/" fragment="projects" (click)="closeMenu()">Projects</a>
+      <a class="nav-link" routerLink="/" fragment="contact" (click)="closeMenu()">Contact</a>
+    }
+    <a class="nav-link" [href]="site.resumePath" download (click)="closeMenu()">Download resume</a>
+  </nav>
+</header>

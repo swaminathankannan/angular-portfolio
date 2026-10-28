@@ -1,0 +1,61 @@
+<article class="project-card" [attr.data-motif]="project().motif">
+  <div class="motif" aria-hidden="true">
+    @switch (project().motif) {
+      @case ('enterprise') {
+        <div class="motif-enterprise">
+          <span></span><span></span><span></span>
+          <span></span><span></span><span></span>
+        </div>
+      }
+      @case ('marketplace') {
+        <div class="motif-grid">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+      }
+      @case ('compliance') {
+        <div class="motif-bars">
+          <b style="--h: 42%"></b><b style="--h: 68%"></b><b style="--h: 55%"></b><b style="--h: 82%"></b><b style="--h: 48%"></b>
+        </div>
+      }
+      @case ('ai-remediation') {
+        <div class="motif-pipeline">
+          <em>Scan</em><span></span><em>Fix</em><span></span><em>Gate</em><span></span><em>MR</em>
+        </div>
+      }
+      @case ('quality-report') {
+        <div class="motif-report">
+          <span class="line"></span><span class="line short"></span><span class="chip">PASS</span>
+          <span class="line"></span><span class="line mid"></span>
+        </div>
+      }
+      @default {
+        <div class="motif-default"></div>
+      }
+    }
+  </div>
+
+  <div class="card-body">
+    <div class="card-top">
+      <span class="category">{{ project().category }}</span>
+      @if (project().period) {
+        <span class="project-period">{{ project().period }}</span>
+      }
+    </div>
+    <h3 class="project-name">
+      <a [routerLink]="['/projects', project().slug]">{{ project().name }}</a>
+    </h3>
+    <p class="project-tagline">{{ project().tagline }}</p>
+    <ul class="stack-list" aria-label="Technologies">
+      @for (tech of project().stack.slice(0, 4); track tech) {
+        <li>{{ tech }}</li>
+      }
+      @if (project().stack.length > 4) {
+        <li class="more">+{{ project().stack.length - 4 }}</li>
+      }
+    </ul>
+    <a class="card-link" [routerLink]="['/projects', project().slug]">
+      Case study
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</article>
